@@ -1,0 +1,53 @@
+name: Publish
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v4
+        name: Set up Python 3.x
+        with:
+          python-version: "3.x"
+          cache: "poetry"
+      - name: Install the project dependencies
+        run: poetry install
+      - name: Build the project
+        run: poetry build
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist
+  release:
+    needs: [build]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Create GitHub Release
+        run: |
+          gh release create --draft \
+            --repo ${{ github.repository }} \
+            --title ${{ github.ref_name }} \
+            --notes "Release ${{ github.ref_name }}" \
+            ${{ github.ref_name }} \
+            artifact/*
+        env:
+          GH_TOKEN: ${{ github.token }}
+  pypi:
+    needs: [build]
+    environment: publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: artifact/
