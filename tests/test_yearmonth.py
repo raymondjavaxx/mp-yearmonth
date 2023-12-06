@@ -1,4 +1,5 @@
 import pytest
+import datetime
 from mp_yearmonth import YearMonth
 
 
@@ -30,6 +31,12 @@ def test_str():
     assert str(YearMonth(2021, 1)) == "2021-01"
     assert str(YearMonth(2021, 12)) == "2021-12"
     assert str(YearMonth(100, 1)) == "0100-01"
+
+
+def test_iso8601():
+    assert YearMonth(2021, 1).iso8601 == "2021-01"
+    assert YearMonth(2021, 12).iso8601 == "2021-12"
+    assert YearMonth(100, 1).iso8601 == "0100-01"
 
 
 def test_repr():
@@ -176,3 +183,11 @@ def test_sub():
     assert ym - 0 == YearMonth(2021, 1)
     assert ym - 1 == YearMonth(2020, 12)
     assert ym - 2 == YearMonth(2020, 11)
+
+
+def test_bounds():
+    ym1 = YearMonth(2021, 1)
+    assert ym1.bounds() == (datetime.date(2021, 1, 1), datetime.date(2021, 1, 31))
+
+    ym2 = YearMonth(2021, 2)
+    assert ym2.bounds() == (datetime.date(2021, 2, 1), datetime.date(2021, 2, 28))
