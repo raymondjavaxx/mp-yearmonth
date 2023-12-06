@@ -6,7 +6,7 @@
 
 import calendar
 import datetime
-from typing import Iterator
+from typing import Iterator, Tuple
 
 
 class YearMonth:
@@ -152,7 +152,7 @@ class YearMonth:
             return YearMonth(self.year - 1, 12)
         return YearMonth(self.year, self.month - 1)
 
-    def bounds(self) -> tuple[datetime.date, datetime.date]:
+    def bounds(self) -> Tuple[datetime.date, datetime.date]:
         """Return the first and last day of the month."""
         return (
             datetime.date(self.year, self.month, 1),
