@@ -185,6 +185,24 @@ def test_sub():
     assert ym - 2 == YearMonth(2020, 11)
 
 
+def test_contains_handles_dates():
+    assert datetime.date(2021, 1, 1) in YearMonth(2021, 1)
+    assert datetime.date(2021, 1, 31) in YearMonth(2021, 1)
+    assert datetime.date(2021, 2, 1) not in YearMonth(2021, 1)
+
+
+def test_contains_handles_datetimes():
+    assert datetime.datetime(2021, 1, 1, hour=12, minute=30) in YearMonth(2021, 1)
+    assert datetime.datetime(2021, 1, 31, hour=12, minute=30) in YearMonth(2021, 1)
+    assert datetime.datetime(2021, 2, 1, hour=12, minute=30) not in YearMonth(2021, 1)
+
+
+def test_contains_handles_unsupported_types():
+    assert 1 not in YearMonth(2021, 1)
+    assert 2021 not in YearMonth(2021, 1)
+    assert "test" not in YearMonth(2021, 1)
+
+
 def test_bounds():
     ym1 = YearMonth(2021, 1)
     assert ym1.bounds() == (datetime.date(2021, 1, 1), datetime.date(2021, 1, 31))

@@ -108,6 +108,11 @@ class YearMonth:
             return self.applying_delta(-other)
         return NotImplemented
 
+    def __contains__(self, other) -> bool:
+        if isinstance(other, datetime.date) or isinstance(other, datetime.datetime):
+            return self.year == other.year and self.month == other.month
+        return False
+
     # Public interface
 
     @property
