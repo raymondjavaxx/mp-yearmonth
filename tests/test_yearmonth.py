@@ -149,5 +149,30 @@ def test_applying_delta():
     assert ym.applying_delta(0) == YearMonth(2021, 1)
     assert ym.applying_delta(1) == YearMonth(2021, 2)
     assert ym.applying_delta(2) == YearMonth(2021, 3)
+    assert ym.applying_delta(3) == YearMonth(2021, 4)
+    assert ym.applying_delta(4) == YearMonth(2021, 5)
+    assert ym.applying_delta(5) == YearMonth(2021, 6)
+    assert ym.applying_delta(6) == YearMonth(2021, 7)
+    assert ym.applying_delta(7) == YearMonth(2021, 8)
+    assert ym.applying_delta(8) == YearMonth(2021, 9)
+    assert ym.applying_delta(9) == YearMonth(2021, 10)
+    assert ym.applying_delta(10) == YearMonth(2021, 11)
+    assert ym.applying_delta(11) == YearMonth(2021, 12)
+    assert ym.applying_delta(12) == YearMonth(2022, 1)
+
     assert ym.applying_delta(-1) == YearMonth(2020, 12)
     assert ym.applying_delta(-2) == YearMonth(2020, 11)
+
+
+def test_add():
+    ym = YearMonth(2021, 1)
+    assert ym + 0 == YearMonth(2021, 1)
+    assert ym + 1 == YearMonth(2021, 2)
+    assert ym + 2 == YearMonth(2021, 3)
+
+
+def test_sub():
+    ym = YearMonth(2021, 1)
+    assert ym - 0 == YearMonth(2021, 1)
+    assert ym - 1 == YearMonth(2020, 12)
+    assert ym - 2 == YearMonth(2020, 11)

@@ -162,7 +162,7 @@ class YearMonth:
     def applying_delta(self, months: int) -> "YearMonth":
         """Return the YearMonth that is `months` away from this one."""
         year = self.year + ((self.month + months - 1) // 12)
-        month = (self.month + months - 1) % 12 + 1
+        month = ((self.month + months - 1) % 12) + 1
         return YearMonth(year, month)
 
     @classmethod
