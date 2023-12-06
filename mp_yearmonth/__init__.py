@@ -5,5 +5,3 @@
 # the MIT License: https://opensource.org/license/mit/
 
 from .yearmonth import YearMonth
-
-__version__ = "0.1.0"
