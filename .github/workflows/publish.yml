@@ -26,3 +26,22 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: ./dist
+  release:
+    needs: [build]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+      - name: Create GitHub Release
+        run: |
+          gh release create --draft \
+            --repo ${{ github.repository }} \
+            --title ${{ github.ref_name }} \
+            --notes "Release ${{ github.ref_name }}" \
+            ${{ github.ref_name }} \
+            artifact/*
+        env:
+          GH_TOKEN: ${{ github.token }}
