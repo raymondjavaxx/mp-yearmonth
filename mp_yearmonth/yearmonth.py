@@ -4,9 +4,12 @@
 # This module is part of mp-yearmonth and is released under
 # the MIT License: https://opensource.org/license/mit/
 
+import re
 import calendar
 import datetime
 from typing import Iterator, Tuple
+
+_FORMAT_PATTERN = re.compile(r"^(\d{4})-(\d{2})$")
 
 
 class YearMonth:
@@ -127,17 +130,11 @@ class YearMonth:
     @classmethod
     def parse(cls, s: str) -> "YearMonth":
         """Parses a string in the format YYYY-MM into a YearMonth object."""
-        is_valid = (
-            isinstance(s, str)
-            and len(s) == 7
-            and s[4] == "-"
-            and s[:4].isdigit()
-            and s[5:].isdigit()
-        )
-        if not is_valid:
+        match = _FORMAT_PATTERN.match(s)
+        if not match:
             raise ValueError(f"Invalid YearMonth string format: {s}")
 
-        year, month = s[:4], s[5:]
+        year, month = match.groups()
         return cls(int(year), int(month))
 
     def next(self) -> "YearMonth":
