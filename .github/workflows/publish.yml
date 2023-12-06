@@ -1,0 +1,28 @@
+name: Publish
+on:
+  push:
+    tags:
+      - v*
+  # TODO: remove
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v4
+        name: Set up Python 3.x
+        with:
+          python-version: "3.x"
+          cache: "poetry"
+      - name: Install the project dependencies
+        run: poetry install
+      - name: Build the project
+        run: poetry build
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist
