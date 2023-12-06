@@ -43,3 +43,17 @@ jobs:
             artifact/*
         env:
           GH_TOKEN: ${{ github.token }}
+  pypi:
+    needs: [build]
+    environment: publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Publish package distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # TODO: remove
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: artifact/
