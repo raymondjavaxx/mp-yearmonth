@@ -40,7 +40,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
   pypi:
-    needs: [build]
+    needs: [release]
     environment: publish
     runs-on: ubuntu-latest
     permissions:
