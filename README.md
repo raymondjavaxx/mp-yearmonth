@@ -56,4 +56,4 @@ for ym in YearMonth.range(ym1, ym2):
 
 ## License
 
-mp-yearmonth is licensed under the MIT license. See [LICENSE](LICENSE) for details.
+mp-yearmonth is licensed under the MIT license. See [LICENSE](https://github.com/raymondjavaxx/mp-yearmonth/blob/main/LICENSE) for details.
