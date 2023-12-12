@@ -2,8 +2,10 @@
 name = "mp-yearmonth"
 version = "0.2.0"
 description = "A year-month datatype for Python."
+keywords = ["year", "month", "date", "calendar"]
 authors = ["Ramon Torres <ramon@macropoetry.com>"]
 readme = "README.md"
+include = ["LICENSE", "CHANGELOG.md"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
